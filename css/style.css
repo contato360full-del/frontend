@@ -26,12 +26,62 @@ html {
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at top, rgba(141, 220, 169, 0.18), transparent 24%),
-              linear-gradient(180deg, #f7fbf8 0%, #eaf6ee 100%);
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
+
+  /* Fundo premium animado (não altera estrutura do HTML) */
+  background: radial-gradient(circle at top, rgba(141, 220, 169, 0.18), transparent 24%),
+              linear-gradient(180deg, #f7fbf8 0%, #eaf6ee 100%);
 }
+
+/* Camada extra que dá “vida” ao fundo */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -30vh -30vw;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at 20% 10%, rgba(34, 211, 238, 0.22), transparent 35%),
+    radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.22), transparent 38%),
+    radial-gradient(circle at 30% 80%, rgba(16, 185, 129, 0.18), transparent 40%);
+
+  filter: blur(18px);
+  opacity: 0.9;
+  animation: bgDrift 14s ease-in-out infinite;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.26) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.08;
+  animation: bgFloat 10s linear infinite;
+}
+
+@keyframes bgDrift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(3vw, 4vh, 0) scale(1.03); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes bgFloat {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-6vw, 6vh, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before, body::after { animation: none !important; }
+}
+
 
 img {
   max-width: 100%;
@@ -201,12 +251,54 @@ button, a {
 }
 
 .button:hover {
-  transform: translateY(-2px) scale(1.01);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 18px 55px rgba(31, 122, 71, 0.22),
+    0 0 0 6px rgba(58, 166, 109, 0.12);
 }
 
 .button:active {
   transform: translateY(0) scale(0.98);
 }
+
+/* “shine” sutil no hover (deixa com cara de site premium) */
+.button {
+  position: relative;
+  overflow: hidden;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: -60%;
+  width: 80px;
+  height: 180%;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.30) 45%,
+    rgba(255,255,255,0) 70%
+  );
+  transform: rotate(18deg) translateX(-60px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.button:hover::after {
+  opacity: 1;
+  animation: btnShine 0.65s ease forwards;
+}
+
+@keyframes btnShine {
+  0% { transform: rotate(18deg) translateX(-120px); }
+  100% { transform: rotate(18deg) translateX(280px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button::after { display: none; }
+}
+
 
 .hero__badge-grid {
   display: flex;
@@ -675,21 +767,7 @@ button, a {
   padding: 12px 24px;
   border-radius: 999px;
   background: rgba(31, 122, 71, 0.08);
-  border: 1px solid rgba(31, 122, 71, 0.16);
-  margin-bottom: 24px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--primary);
-}
 
-.team__title {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  line-height: 1.1;
-  margin: 0;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .team__grid {
   position: relative;
@@ -1501,6 +1579,17 @@ button, a {
   .topbar__inner {
     flex-wrap: wrap;
   }
+
+  /* garante que o menu fique acima do conteúdo */
+  .nav {
+    z-index: 1001;
+  }
+
+  /* evita “corte” no topo por causa do header fixo */
+  .hero {
+    padding-top: 132px;
+  }
+
 
   .hero__visual {
     min-height: 520px;

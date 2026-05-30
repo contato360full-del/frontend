@@ -1,3 +1,15 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biotrato Saúde Integrativa</title>
+  </head>
+  <body class="antialiased bg-ice">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,6 +21,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-h20CPYfbeMrZ2x8yQHjUbbT0H+QG5F0t31kdrO2xYLH4zlR4x8xICyi9mK+F8VzNn4CC7u0c0wjfLmJJvSh2Lg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Swiper (Professional Stories carousel) -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
   <div class="intro-overlay" id="introOverlay">
@@ -26,7 +41,7 @@
     </div>
   </div>
 
-  <header class="topbar">
+  <header class="topbar" id="topbar">
     <div class="container topbar__inner">
       <a href="#home" class="brand">Biotrato</a>
       <nav class="nav" id="navMenu">
@@ -491,6 +506,7 @@
     <div class="footer__copy">© 2026 Biotrato Integrative Health. Todos os direitos reservados.</div>
   </footer>
 
+  <script src="https://unpkg.com/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
